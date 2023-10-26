@@ -19,13 +19,15 @@ public class ProjectConfig implements WebMvcConfigurer{
     
     /*localeResolver se utiliza para crear una sesion de cambio de idioma*/
     
-//    @Bean 
-//    public LocaleResolver localeResolver(){
-//        slr.setDefaultLocale(defaultLocale:Locale.getDefault());
-//        slr.setLocalAttributeName(localAttributeName: "session.current.locale");
-//        slr.setTimeZoneAttibuteName(timeZoneAttributeName:"session.current.time");
-//        return slr;
-//    }
+    @Bean 
+    public SessionLocaleResolver localeResolver(){
+        var slr = new SessionLocaleResolver();
+        slr.setDefaultLocale(Locale.getDefault());
+        slr.setLocaleAttributeName("session.current.locale");
+        slr.setTimeZoneAttributeName("session.current.time");
+        
+        return slr;
+    }
     
     /*localeChangeInterceptor se utliza para crear un interceptro de idioma*/
     
