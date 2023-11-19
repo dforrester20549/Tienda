@@ -1,38 +1,46 @@
 package com.tienda.domain;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import java.io.Serializable;
+import java.util.List;
 import lombok.Data;
 
 @Data
 @Entity
 @Table(name="producto")
-public class Producto implements Serializable {
-    private static final long serialVersionUID = 1L;
+//Serializacion va almacenar datos de la bd
+public class Producto implements Serializable{
     
-    @Id
+    private static final long serialVersionUID = 1L; //Para poder hacer el cilo de la sumatoria de la categorio (AUTO_INCREMENT)
+    
+    @Id //Id es la llave de la tabla producto
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id_producto")
-    private Long idProducto;
-    //private Long idCategoria;  ya no se usa por el @manyToOne
+    @Column(name = "id_producto")
+    private long idProducto;
     private String descripcion;
-    private String detalle;
-    private double precio;
-    private int existencias;
     private String rutaImagen;
     private boolean activo;
+    
+//    private long idCategoria;
+    private String detalle;
+    private int existencias;
+    private double precio;
 
-    @ManyToOne
-    @JoinColumn(name="id_categoria")
-    Categoria categoria;
-
-
+    @OneToMany
+    @JoinColumn(name = "id_categoria")
+    List<Producto> productos;
     public Producto() {
     }
 
-    public Producto(String descripcion, boolean activo) {
+    public Producto(String descripcion) {
         this.descripcion = descripcion;
-        this.activo = activo;
     }
     
 }
